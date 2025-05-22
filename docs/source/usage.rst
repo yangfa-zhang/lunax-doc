@@ -6,29 +6,53 @@ Usage
 Installation
 ------------
 
-To use Lumache, first install it using pip:
+To use lunax, first install it using pip:
 
 .. code-block:: console
 
    (.venv) $ pip install lunax
 
-Creating recipes
-----------------
+Data Preprocessing
+------------------
+For example: 
 
-To retrieve a list of random ingredients,
-you can use the ``lumache.get_random_ingredients()`` function:
+.. code-block:: python
 
-.. autofunction:: lumache.get_random_ingredients
+   from lunax.data_processing.utils import *
+   df_train = load_data('train.csv') # or df = load_data('train.parquet',mode='parquet')
+   target = 'label_column_name'
+   df_train = preprocess_data(df_train, target)
 
-The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
-or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
-will raise an exception.
-
-.. autoexception:: lumache.InvalidKindError
-
+Exploratory Data Analysis
+-------------------------
 For example:
 
->>> import lumache
->>> lumache.get_random_ingredients()
-['shells', 'gorgonzola', 'parsley']
+.. code-block:: python
 
+   from lunax.viz import numeric_eda, categoric_eda
+   numeric_eda([df_train,df_test],['train','test'],target=target) # numeric feature analysis
+   categoric_eda([df_train,df_test],['train','test'],target=target) # categorical feature analysis
+
+Modeling
+---------
+For example:
+
+.. code-block:: python
+
+   from lunax.models import xgb_clf # or xgb_reg, lgbm_reg, lgbm_clf, cat_clf, cat_reg
+   from lunax.hyper_opt import OptunaTuner
+   tuner = OptunaTuner(n_trials=10,model_class="XGBClassifier") # Hyperparameter optimizer, n_trials is the number of optimization times
+   # or "XGBRegressor", "LGBMRegressor", "LGBMClassifier" , "CatClassifier", "CatRegressor"
+   X_train, X_val, y_train, y_val = split_data(df_train, target)
+   results = tuner.optimize(X_train, y_train, X_val, y_val)
+   best_params = results['best_params']
+   model = xgb_clf(best_params)
+   model.fit(X_train, y_train)
+
+Model Evaluation and Explainable AI (XAI)
+------------------------------------------
+For example:
+
+.. code-block:: python
+
+   model.evaluate(X_val, y_val)
