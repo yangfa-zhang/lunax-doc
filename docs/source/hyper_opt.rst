@@ -115,3 +115,71 @@ This module provides hyperparameter optimization functionality using the Optuna 
           'n_estimators': ('int', 100, 500)
       }
       tuner = OptunaTuner(param_space=param_space)
+
+Example Usage
+------------
+
+Basic Usage
+~~~~~~~~~~~
+
+.. code-block:: python
+
+   from lunax.hyper_opt import OptunaTuner
+   from lunax.models import xgb_clf
+
+   # Initialize tuner for XGBoost classifier
+   tuner = OptunaTuner(
+       n_trials=50,
+       model_class='XGBClassifier',
+       metric_name='f1'
+   )
+
+   # Optimize hyperparameters
+   results = tuner.optimize(X_train, y_train, X_val, y_val)
+
+   # Get best parameters and create model
+   best_params = results['best_params']
+   model = xgb_clf(best_params)
+   model.fit(X_train, y_train)
+
+Custom Parameter Space
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # Define custom parameter space
+   param_space = {
+       'max_depth': ('int', 3, 10),
+       'learning_rate': ('float', 0.01, 0.3),
+       'n_estimators': ('int', 50, 1000),
+       'subsample': ('float', 0.5, 1.0),
+       'colsample_bytree': ('float', 0.5, 1.0)
+   }
+
+   # Initialize tuner with custom space
+   tuner = OptunaTuner(
+       n_trials=50,
+       model_class='XGBClassifier',
+       metric_name='auc',
+       param_space=param_space
+   )
+
+Multiple Metrics
+~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   # Optimize for multiple metrics
+   tuner = OptunaTuner(
+       n_trials=50,
+       model_class='LGBMClassifier',
+       metric_name=['accuracy', 'f1']  # Will use mean of metrics
+   )
+
+   # Add time limit
+   tuner = OptunaTuner(
+       n_trials=50,
+       model_class='CatClassifier',
+       metric_name='accuracy',
+       timeout=3600  # 1 hour limit
+   )

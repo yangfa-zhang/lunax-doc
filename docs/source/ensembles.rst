@@ -3,9 +3,6 @@ lunax.ensembles
 
 This module implements a hill climbing algorithm for optimizing ensemble model weights.
 
-Classes
--------
-
 .. py:class:: HillClimbingEnsemble
 
    A class that implements hill climbing optimization for ensemble model weights.

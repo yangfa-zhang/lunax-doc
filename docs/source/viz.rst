@@ -3,9 +3,6 @@ lunax.viz
 
 This module provides visualization tools for exploratory data analysis (EDA).
 
-Exploratory Data Analysis
-------------------------
-
 .. py:module:: lunax.viz.eda
 
 Functions for visualizing data distributions and patterns.
