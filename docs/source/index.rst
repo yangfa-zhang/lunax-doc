@@ -16,5 +16,4 @@ Contents
 .. toctree::
 
    usage
-   api
-   tree_models
+   models
