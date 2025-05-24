@@ -1,100 +1,80 @@
 lunax.viz
-==============================
+=================
 
-This module provides visualization functions for exploratory data analysis, supporting both numeric and categorical features.
+This module provides visualization tools for exploratory data analysis (EDA).
 
-Functions
----------
+Exploratory Data Analysis
+------------------------
+
+.. py:module:: lunax.viz.eda
+
+Functions for visualizing data distributions and patterns.
 
 .. py:function:: numeric_eda(df_list: List[pd.DataFrame], label_list: List[str], target: str, custom_palette: Optional[List[str]] = None) -> None
 
-   Visualize the distribution of numeric features across different datasets.
+   Create visualization for numeric features distribution.
 
    :param df_list: List of DataFrames to analyze
    :type df_list: List[pd.DataFrame]
    :param label_list: List of labels for each DataFrame
    :type label_list: List[str]
-   :param target: Name of the target variable
+   :param target: Name of target variable
    :type target: str
-   :param custom_palette: Optional list of custom colors for visualization
+   :param custom_palette: Custom color palette for visualization
    :type custom_palette: List[str], optional
    :raises ValueError: If more than 3 datasets are provided
    :return: None
 
-   **Features:**
+   Creates two subplots for each numeric feature:
+      - Box plot showing distribution comparison
+      - Histogram with kernel density estimation
 
-   - Creates side-by-side box plots and histograms for each numeric feature
-   - Supports comparison of up to 3 datasets
-   - Provides built-in color palettes inspired by nature:
-     - Two datasets: Forest-themed green and yellow
-     - Three datasets: Forest-themed green, yellow, and orange
-   - Customizable color palette
-   - Automatically excludes target variable from analysis
+   **Default Color Palettes:**
 
-   **Example Usage:**
+   For two datasets:
+      - Forest theme: ``["#5A8100", "#FFB400"]`` (Green, Yellow)
+      - Ocean theme: ``['#B74803','#022E51']`` (Brown, Navy)
+      - Mountain theme: ``["#C7A003", "#3D4E17"]`` (Gold, Olive)
+      - Fashion theme: ``["#FCA3B9","#FCD752"]`` (Pink, Yellow)
+      - Classic theme: ``["#285185","#D67940"]`` (Blue, Orange)
 
-   .. code-block:: python
-
-      from lunax.viz import numeric_eda
-
-      # Basic usage
-      numeric_eda([train_df, test_df], ['Train', 'Test'], target='target_column')
-
-      # With custom colors
-      numeric_eda([train_df, test_df], ['Train', 'Test'], 
-                 target='target_column',
-                 custom_palette=['#285185', '#D67940'])
+   For three datasets:
+      - Forest theme: ``["#5A8100", "#FFB400", "#FF6C02"]`` (Green, Yellow, Orange)
+      - Mountain theme: ``["#C7A003", "#3D4E17", "#151F1E"]`` (Gold, Olive, Dark)
 
 .. py:function:: categoric_eda(df_list: List[pd.DataFrame], label_list: List[str], target: str, custom_palette: Optional[List[str]] = None) -> None
 
-   Visualize the distribution of categorical features across different datasets.
+   Create visualization for categorical features distribution.
 
    :param df_list: List of DataFrames to analyze
    :type df_list: List[pd.DataFrame]
    :param label_list: List of labels for each DataFrame
    :type label_list: List[str]
-   :param target: Name of the target variable
+   :param target: Name of target variable
    :type target: str
-   :param custom_palette: Optional list of custom colors for visualization
+   :param custom_palette: Custom color palette for visualization
    :type custom_palette: List[str], optional
    :raises ValueError: If more than 3 datasets are provided
    :return: None
 
-   **Features:**
+   Creates two subplots for each categorical feature:
+      - Pie chart showing proportion distribution
+      - Bar chart showing count distribution
 
-   - Creates pie charts and bar plots for each categorical feature
-   - Supports comparison of up to 3 datasets
-   - Uses the same nature-inspired color palettes as numeric_eda
-   - Customizable color palette
-   - Automatically excludes target variable from analysis
-   - Pie charts show percentage distribution
-   - Bar charts display absolute counts
+   Uses the same color palettes as :func:`numeric_eda`
 
-   **Example Usage:**
+Example Usage
+------------
 
-   .. code-block:: python
+.. code-block:: python
 
-      from lunax.viz import categoric_eda
+   from lunax.viz import numeric_eda, categoric_eda
 
-      # Basic usage
-      categoric_eda([train_df, test_df], ['Train', 'Test'], target='target_column')
+   # Basic usage
+   numeric_eda([train_df, test_df], ['Train', 'Test'], target='target')
+   categoric_eda([train_df, test_df], ['Train', 'Test'], target='target')
 
-      # With custom colors
-      categoric_eda([train_df, test_df], ['Train', 'Test'], 
-                   target='target_column',
-                   custom_palette=['#FCA3B9', '#FCD752'])
-
-Visualization Details
--------------------
-
-Both functions create publication-quality visualizations with the following characteristics:
-
-- Figure size: 12x4 inches
-- DPI: 150
-- Style: White grid background
-- Automatic layout adjustment
-- Clear titles and labels
-- Legend for multiple datasets
-- Consistent color schemes across plots
-
-The visualizations are designed to provide immediate insights into data distributions and patterns while maintaining aesthetic appeal.
+   # With custom color palette
+   custom_colors = ['#285185', '#D67940']
+   numeric_eda([train_df, test_df], ['Train', 'Test'], 
+               target='target', custom_palette=custom_colors)

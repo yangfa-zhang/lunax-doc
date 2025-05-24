@@ -1,5 +1,5 @@
 lunax.models
-==========
+============
 
 This module contains wrapper classes for various tree models, including regression and classification models from XGBoost, LightGBM, and CatBoost.
 

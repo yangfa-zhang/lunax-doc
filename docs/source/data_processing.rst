@@ -3,9 +3,6 @@ lunax.data_processing
 
 This module provides utility functions for data loading, splitting, and preprocessing operations.
 
-Data Loading
------------
-
 .. py:function:: load_data(file_path: str) -> pd.DataFrame
 
    Load tabular data from a file into a DataFrame.
@@ -16,9 +13,6 @@ Data Loading
    :rtype: pd.DataFrame
    :raises ValueError: If file format is not supported
    :raises Exception: If data loading fails
-
-Data Splitting
--------------
 
 .. py:function:: split_data(df: pd.DataFrame, target: str, test_size: float = 0.2, random_state: int = 42) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]
 
@@ -34,9 +28,6 @@ Data Splitting
    :type random_state: int
    :return: X_train, X_val, y_train, y_val
    :rtype: Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]
-
-Data Preprocessing
-----------------
 
 .. py:function:: preprocess_data(df: pd.DataFrame, target: str = None, numeric_strategy: str = "mean", category_strategy: str = "most_frequent", scale_numeric: bool = True, encode_categorical: bool = True) -> pd.DataFrame
 
