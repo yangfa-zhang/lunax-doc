@@ -18,7 +18,7 @@ For example:
 
 .. code-block:: python
 
-   from lunax.data_processing.utils import *
+   from lunax.data_processing import *
    df_train = load_data('train.csv') # or df = load_data('train.parquet',mode='parquet')
    target = 'label_column_name'
    df_train = preprocess_data(df_train, target)

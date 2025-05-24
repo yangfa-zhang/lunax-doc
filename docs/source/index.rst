@@ -16,4 +16,8 @@ Contents
 .. toctree::
 
    usage
+   data_processing
+   viz
    models
+   hyper_opt
+   ensembles
