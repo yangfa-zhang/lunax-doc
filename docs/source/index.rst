@@ -21,3 +21,4 @@ Contents
    models
    hyper_opt
    ensembles
+   xai
