@@ -56,7 +56,8 @@ This module provides utility functions for data loading, splitting, and preproce
    - Provides label encoding for categorical variables
    - Preserves original data by working on a copy
 
-   **Example Usage:**
+Example Usage
+--------------
 
    .. code-block:: python
 
