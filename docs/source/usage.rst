@@ -51,8 +51,26 @@ For example:
 
 Model Evaluation and Explainable AI (XAI)
 ------------------------------------------
-For example:
 
 .. code-block:: python
 
    model.evaluate(X_val, y_val)
+
+Ensemble Learning
+-----------------
+
+.. code-block:: python
+
+   from lunax.ensembles import HillClimbingEnsemble
+   model1 = xgb_clf()
+   model2 = lgbm_clf()
+   model3 = cat_clf()
+   for model in [model1, model2, model3]:
+      model.fit(X_train, y_train)
+   ensemble = HillClimbingEnsemble(
+      models=[model1, model2, model3],
+      metric=['auc'],
+      maximize=True
+   )
+   best_weights = ensemble.fit(X_val, y_val)
+   predictions = ensemble.predict(df_test)
